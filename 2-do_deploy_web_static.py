@@ -1,17 +1,25 @@
 #!/usr/bin/python3
-"""A module for web application deployment with Fabric."""
+'''
+fabric script to distribute an archive to web servers
+----NEEDS TO REVISIT SCRIPT
+'''
+
 import os
 from datetime import datetime
 from fabric.api import env, local, put, run, runs_once
 
 
-env.hosts = ["34.73.0.174", "35.196.78.105"]
-"""The list of host server IP addresses."""
+env.hosts = ['18.205.38.219', '34.138.16.188']
 
 
-@runs_once
-def do_pack():
-    """Archives the static files."""
+def do_deploy(archive_path):
+    """Distributes an archive to a web server.
+    Args:
+        archive_path (str): The path of the archive to distribute.
+    Returns:
+        If the file doesn't exist at archive_path or an error occurs - False.
+        Otherwise - True.
+    """
     if not os.path.isdir("versions"):
         os.mkdir("versions")
     cur_time = datetime.now()
